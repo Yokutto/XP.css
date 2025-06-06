@@ -1,0 +1,115 @@
+/*-------------------------------------------*\
+    ProgressBar
+\*-------------------------------------------*/
+
+@keyframes sliding {
+  0% {
+    transform: translateX(-40%);
+  }
+  100% {
+    transform: translateX(140%);
+  }
+}
+
+progress {
+  --determinate-track: repeating-linear-gradient(
+    to right,
+    navy 0px,
+    navy 10px,
+    transparent 10px,
+    transparent 12px
+  );
+  --indeterminate-track: repeating-linear-gradient(
+    to right,
+    transparent 0px,
+    transparent 10px,
+    navy 10px,
+    navy 20px,
+    transparent 20px,
+    transparent 22px,
+    navy 22px,
+    navy 32px,
+    transparent 32px,
+    transparent 34px,
+    navy 34px,
+    navy 44px,
+    transparent 44px,
+    transparent 56px,
+    transparent 100%
+  );
+  --indeterminate-track-animation: sliding 2s linear 0s infinite;
+  --track-shadow: inset -2px -2px #dfdfdf, inset 2px 2px grey;
+  --track-height: 24px;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  height: var(--track-height);
+
+  border: 0;
+
+  padding: 4px;
+
+  overflow: hidden;
+  background-color: #c0c0c0;
+
+  box-sizing: border-box;
+  box-shadow: var(--track-shadow);
+
+  &:not(:indeterminate) {
+    &::-webkit-progress-value {
+      background: var(--determinate-track);
+    }
+
+    &::-moz-progress-bar {
+      background: var(--determinate-track);
+    }
+  }
+
+  /* Indeterminate styles */
+  &:indeterminate {
+    position: relative;
+    will-change: left, right;
+
+    /* This pseudo element is to hide the not working -webkit-progress-bar animation above for Chrome and Edge */
+    &::before {
+      content: "";
+      position: absolute;
+
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      z-index: 1;
+
+      box-sizing: border-box;
+      box-shadow: var(--track-shadow);
+    }
+
+    /* Real animated element */
+    &::after {
+      content: "";
+      position: absolute;
+
+      width: 100%;
+      top: 4px;
+      bottom: 4px;
+
+      background: var(--indeterminate-track);
+      animation: var(--indeterminate-track-animation);
+    }
+
+    /* Uses ::after instead */
+    &::-webkit-progress-bar {
+      background-color: transparent;
+    }
+
+    /* Firefox */
+    &::-moz-progress-bar {
+      background: var(--indeterminate-track);
+      animation: var(--indeterminate-track-animation);
+    }
+  }
+}
