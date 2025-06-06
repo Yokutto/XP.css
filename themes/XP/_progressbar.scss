@@ -100,6 +100,13 @@ progress {
       content: "";
       position: absolute;
 
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      z-index: 1;
+
       box-sizing: border-box;
       box-shadow: var(--track-shadow);
     }
@@ -108,6 +115,13 @@ progress {
     &::after {
       content: "";
       position: absolute;
+
+      /* This thing mimic the padding in <progress>, I fear thats not 1:1, but it looks the same I guess */
+      top: 1px;
+      bottom: 1px;
+      left: 2px;
+      right: 2px;
+      width: 100%;
 
       background: var(--indeterminate-track);
       animation: var(--indeterminate-track-animation);

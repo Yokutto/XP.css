@@ -93,9 +93,10 @@ progress {
       content: "";
       position: absolute;
 
-      width: 100%;
+      /* This thing mimic the padding in <progress>, I fear thats not 1:1, but it looks the same I guess */
       top: 4px;
       bottom: 4px;
+      width: 100%;
 
       background: var(--indeterminate-track);
       animation: var(--indeterminate-track-animation);
